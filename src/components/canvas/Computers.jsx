@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
+import { OrbitControls, Preload } from "@react-three/drei";
 import CanvasLoader from "../Loader";
 
 // Hook para detectar si es móvil
@@ -24,27 +24,21 @@ const useIsMobile = () => {
   return isMobile;
 };
 
-const Computers = ({ isMobile }) => {
-  const computer = useGLTF("../src/assets/gaming_setup.glb");
-
+// Componente vacío que puedes reemplazar con cualquier otro modelo 3D
+const Model3D = ({ isMobile }) => {
   return (
     <mesh>
-      <hemisphereLight intensity={0.15} groundColor='black' />
+      <hemisphereLight intensity={0.15} groundColor="black" />
       <spotLight
         position={[-20, 50, 10]}
         angle={0.12}
         penumbra={1}
         intensity={1}
         castShadow
-        shadow-mapSize={512} // Reducido para mejor rendimiento
+        shadow-mapSize={512}
       />
       <pointLight intensity={1} />
-      <primitive
-        object={computer.scene}
-        scale={isMobile ? 0.7 : 0.75}
-        position={isMobile ? [0, -3, -2.2] : [0, -3.25, -1.5]}
-        rotation={[-0.01, -0.2, -0.1]}
-      />
+      {/* Aquí puedes agregar cualquier modelo 3D en el futuro */}
     </mesh>
   );
 };
@@ -54,7 +48,7 @@ const ComputersCanvas = () => {
 
   return (
     <Canvas
-      frameloop='demand'
+      frameloop="demand"
       shadows
       dpr={[1, 2]}
       camera={{ position: [20, 3, 5], fov: 25 }}
@@ -66,7 +60,7 @@ const ComputersCanvas = () => {
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
-        <Computers isMobile={isMobile} />
+        <Model3D isMobile={isMobile} />
       </Suspense>
 
       <Preload all />
