@@ -4,16 +4,16 @@ import {
   StarsCanvas,
   EarthCanvas,
 } from "./canvas";
-import Hero from "./Hero";
-import Navbar from "./Navbar";
-import About from "./About";
-import Tech from "./Tech";
-import Experience from "./Experience";
-import Works from "./Works";
-import Feedbacks from "./Feedbacks";
-import Contact from "./Contact";
-import Services from "./Services"; // ← Agrega esta línea
-import CanvasLoader from "./Loader";
+import Hero from "./Hero.js"; // Agregar .js
+import Navbar from "./Navbar.js";
+import About from "./About.js";
+import Tech from "./Tech.js";
+import Experience from "./Experience.js";
+import Works from "./Works.js";
+import Feedbacks from "./Feedbacks.js";
+import Contact from "./Contact.js";
+import Services from "./Services.js";
+import CanvasLoader from "./Loader.js";
 
 export {
   Hero,
@@ -24,7 +24,7 @@ export {
   Works,
   Feedbacks,
   Contact,
-  Services, // ← Agrega esta línea
+  Services,
   CanvasLoader,
   EarthCanvas,
   BallCanvas,
