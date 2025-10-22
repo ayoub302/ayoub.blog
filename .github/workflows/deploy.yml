@@ -1,25 +1,42 @@
 name: Deploy to GitHub Pages
 
+# Ejecutar al hacer push a main
 on:
   push:
     branches:
       - main
 
+# Dar permisos explícitos al token de GITHUB_ACTIONS
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Use Node.js
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # asegura que las credenciales del token se mantengan para push
+          persist-credentials: true
+
+      - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
+
       - name: Install deps
-        run: npm ci
+        run: npm install
+
       - name: Build
         run: npm run build
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
+          # usa el token que GitHub provee al job
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          # force_orphan: true   # opcional si quieres limpiar todo y crear rama gh-pages nueva
