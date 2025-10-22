@@ -8,6 +8,8 @@ const services = [
   {
     title: "Página Web Básica",
     price: "100€",
+    paymentLink: import.meta.env.VITE_STRIPE_BASIC_PAYMENT_LINK,
+    duration: "2 semanas",
     features: [
       "Diseño web moderno y responsive",
       "Optimizada para Google y móviles",
@@ -15,7 +17,6 @@ const services = [
       "Galería de fotos de tu negocio",
       "Formulario de contacto",
       "Soporte técnico por 30 días",
-      // Quitado: "Hosting y dominio incluidos por 1 año"
     ],
     popular: false,
     color: "from-blue-500 to-cyan-500",
@@ -23,6 +24,8 @@ const services = [
   {
     title: "Tienda Online Profesional",
     price: "300€",
+    paymentLink: import.meta.env.VITE_STRIPE_PROFESSIONAL_PAYMENT_LINK,
+    duration: "4 semanas",
     features: [
       "Desarrollo con React.js moderna",
       "Base de datos MongoDB/Prisma",
@@ -30,7 +33,6 @@ const services = [
       "Gestión de productos fácil",
       "Pasarela de pagos segura",
       "Soporte mensual: 10€ (opcional)",
-      // Quitado: "Panel de administración"
     ],
     popular: true,
     color: "from-purple-500 to-pink-500",
@@ -38,6 +40,8 @@ const services = [
   {
     title: "Plataforma Completa",
     price: "500€",
+    paymentLink: import.meta.env.VITE_STRIPE_PREMIUM_PAYMENT_LINK,
+    duration: "6 semanas",
     features: [
       "Sistema Fullstack avanzado",
       "Panel de admin profesional",
@@ -92,8 +96,11 @@ const ServiceCard = ({ service, index }) => (
         ))}
       </ul>
 
-      <button className="w-full bg-gradient-to-r from-green-500 to-blue-500 py-3 px-6 rounded-xl text-white font-bold hover:scale-105 transition-transform duration-300 mt-auto">
-        ¡Quiero este plan!
+      <button
+        onClick={() => (window.location.href = service.paymentLink)}
+        className="w-full bg-gradient-to-r from-green-500 to-blue-500 py-3 px-6 rounded-xl text-white font-bold hover:scale-105 transition-transform duration-300 mt-auto"
+      >
+        ¡Comprar Ahora!
       </button>
 
       {service.popular && (
@@ -128,7 +135,6 @@ const Services = () => {
         </span>
       </motion.p>
 
-      {/* Contenedor con grid para mejor alineación */}
       <div className="mt-20 grid grid-cols-1 lg:grid-cols-3 gap-8 justify-items-center">
         {services.map((service, index) => (
           <div key={service.title} className="w-full max-w-[400px]">
@@ -137,7 +143,6 @@ const Services = () => {
         ))}
       </div>
 
-      {/* Sección de garantías */}
       <motion.div
         variants={fadeIn("up", "spring", 0.5, 1)}
         className="mt-16 bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-2xl p-8 border border-white/10"
